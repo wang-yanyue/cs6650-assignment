@@ -1,0 +1,8 @@
+org\example\chatclient\LoadTestClient.class
+org\example\chatclient\LoadTestClient$SenderWorker$1.class
+org\example\chatclient\LoadTestClient$MessageGenerator.class
+org\example\chatclient\MeasureRTT$2.class
+org\example\chatclient\LoadTestClient$GeneratedMessage.class
+org\example\chatclient\LoadTestClient$SenderWorker.class
+org\example\chatclient\MeasureRTT.class
+org\example\chatclient\MeasureRTT$1.class

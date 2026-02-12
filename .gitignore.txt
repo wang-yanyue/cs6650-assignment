@@ -1,0 +1,20 @@
+# Maven/Java build artifacts
+target/
+**/target/
+
+# IDE files
+.idea/
+*.iml
+*.classpath
+*.project
+.settings/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Never commit private keys
+*.pem
