@@ -190,4 +190,4 @@ For the main Part 2 run:
 - Measured throughput **λ**: ≈ 213,238 msg/s.
 - Implied average time in system **W**: `W = L / λ ≈ 0.00030 s ≈ 0.30 ms/message`.
 
-This closely matches the predicted throughput from Little’s Law, indicating the implementation behaves as expected under load.\n
+This closely matches the predicted throughput from Little’s Law, indicating the implementation behaves as expected under load.
