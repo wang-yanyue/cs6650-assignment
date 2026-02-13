@@ -66,9 +66,10 @@ public class LoadTestClientPart3 {
     private static final Map<Integer, AtomicLong> ROOM_COUNTS = new ConcurrentHashMap<>();
     private static final Map<String, AtomicLong> TYPE_COUNTS = new ConcurrentHashMap<>();
 
-    // Throughput over time (10-second buckets, based on receive time)
+    // Throughput over time (configurable buckets, based on receive time)
     private static final Map<Long, AtomicLong> BUCKET_COUNTS = new ConcurrentHashMap<>();
-    private static final long BUCKET_SIZE_NANOS = 10_000_000_000L; // 10 seconds
+    private static final int BUCKET_SECONDS = 1; // 1-second buckets give more chart points for short tests
+    private static final long BUCKET_SIZE_NANOS = BUCKET_SECONDS * 1_000_000_000L;
 
     // Simple pool of 50 predefined messages
     private static final String[] MESSAGE_POOL = new String[50];
@@ -537,20 +538,23 @@ public class LoadTestClientPart3 {
         // Write throughput over time (10-second buckets)
         Path bucketsPath = resultsDir.resolve("part3-throughput-buckets.csv");
         try (BufferedWriter writer = Files.newBufferedWriter(bucketsPath)) {
-            writer.write("bucketStartSeconds,messages,throughputMsgPerSec");
+            writer.write("bucketStartElapsedSeconds,messages,throughputMsgPerSec");
             writer.newLine();
 
             long maxBucket = BUCKET_COUNTS.keySet().stream().mapToLong(v -> v).max().orElse(0L);
             for (long i = 0; i <= maxBucket; i++) {
                 long count = BUCKET_COUNTS.getOrDefault(i, new AtomicLong(0)).get();
-                double bucketThroughput = count / 10.0; // 10-second buckets
-                long bucketStartSeconds = (globalStartNanos / 1_000_000_000L) + (i * 10);
-                writer.write(String.format("%d,%d,%.3f", bucketStartSeconds, count, bucketThroughput));
+                double bucketThroughput = count / (double) BUCKET_SECONDS;
+                long bucketStartElapsedSeconds = i * BUCKET_SECONDS;
+                writer.write(String.format("%d,%d,%.3f", bucketStartElapsedSeconds, count, bucketThroughput));
                 writer.newLine();
             }
         }
         System.out.println("Throughput buckets written to: " + bucketsPath.toAbsolutePath());
-        System.out.println("You can plot this CSV as a line chart (time vs throughput) in Excel/Sheets.");
+        if (BUCKET_COUNTS.size() <= 1) {
+            System.out.println("Only one throughput bucket was generated; increase run time/messages for a richer chart.");
+        }
+        System.out.println("You can plot this CSV as a line chart (elapsed time vs throughput) in Excel/Sheets.");
     }
 
     private static double percentile(List<Double> sorted, double pct) {
