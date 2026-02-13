@@ -1,8 +1,15 @@
+org\example\chatclient\LoadTestClientPart3$MessageGenerator.class
 org\example\chatclient\LoadTestClient.class
 org\example\chatclient\LoadTestClient$SenderWorker$1.class
 org\example\chatclient\LoadTestClient$MessageGenerator.class
+org\example\chatclient\LoadTestClientPart3$SenderWorker$1.class
+org\example\chatclient\LoadTestClientPart3$MessageMetric.class
 org\example\chatclient\MeasureRTT$2.class
 org\example\chatclient\LoadTestClient$GeneratedMessage.class
+org\example\chatclient\LoadTestClientPart3$SenderWorker.class
 org\example\chatclient\LoadTestClient$SenderWorker.class
+org\example\chatclient\LoadTestClientPart3$PendingMessage.class
 org\example\chatclient\MeasureRTT.class
 org\example\chatclient\MeasureRTT$1.class
+org\example\chatclient\LoadTestClientPart3$GeneratedMessage.class
+org\example\chatclient\LoadTestClientPart3.class
